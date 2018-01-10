@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :microposts, dependent: :destroy
 
   attr_accessor :remember_token
 
@@ -11,6 +12,12 @@ class User < ApplicationRecord
                             uniqueness: { case_sensitive: false}
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   has_secure_password
+
+  # 試作feedの定義
+  # 完全な実装は次章の「ユーザーをフォローする」を参照
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
 
 # 渡された文字列のハッシュを返す
   def User.digest(string)

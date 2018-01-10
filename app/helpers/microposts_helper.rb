@@ -1,5 +1,2 @@
 module MicropostsHelper
-
-
-
 end
